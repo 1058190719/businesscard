@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-1.12.2.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    function generateQRCARD() {
+        var name = $("input[name='name']").val();
+        var sex = $("input[name='sex']").val();
+        var age = $("input[name='age']").val();
+        var host = document.location.hostname;
+        var url = 'http://'+host+'/businesscard/html/showcard.html';
+        if (true){
+            $.ajax({
+                url:"../include/service.php",
+                data:{
+                    "action":"setCardInfo",
+                    "name":name,
+                    "sex":sex,
+                    "age":age,
+                    "url":url
+                },
+                type:"post",
+                dataType:"json",
+                success:function (result) {
+                    window.location.href = 'http://'+host+'/businesscard/html/showqrcard.html'+'?id='+result.id;
+                }
+            });
+        }
+    }
+</script>
+<div>
+    <div>
+        姓名<input name = "name" value=""><br>
+        性别<input name="sex" value=""><br>
+        年龄<input name="age" value="">
+        <button onclick="generateQRCARD()">生成</button>
+    </div>
+</div>
+</body>
+</html>

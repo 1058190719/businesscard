@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>名片信息</title>
+    <script src="../js/jquery-1.12.2.min.js"></script>
+</head>
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    initInfo();
+    function initInfo() {
+        var id = getQueryString('id');
+        if (true){
+            $.ajax({
+                url:"../include/service.php",
+                data:{'id':id,"action":"showCardInfo"},
+                type:'get',
+                dataType:'json',
+                success:function (data) {
+                    if (data != '' || typeof(data) == "object"){
+                        var content = "";
+                        $.each(data, function (key, value) {
+                            content += "<span>" + key + ":" + value+"</span></br>";
+                        });
+                        $("#content").append(content);
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+
+    }
+</script>
+<body>
+<div id="content">
+</div>
+</body>
+</html>

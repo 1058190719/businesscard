@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-1.12.2.min.js"></script>
+</head>
+<body>
+<img id="qrcard" src="">
+</body>
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    init();
+    function init() {
+        var host = document.location.hostname;
+        var id = getQueryString('id');
+        var src = 'http://'+host+'/businesscard/temp/qrcard/'+id+'.png';
+        $("#qrcard").attr("src",src);
+    }
+</script>
+</html>
